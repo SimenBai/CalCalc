@@ -1,0 +1,23 @@
+{
+  "monday": [
+    {
+      "from": "0h0m0s",
+      "duration": "8h0m",
+      "name": "Weekend"
+    }
+  ],
+  "weekends": [
+    {
+      "from": "0h0m0s",
+      "duration": "24h",
+      "name": "Weekend"
+    }
+  ],
+  "weekdays": [
+    {
+      "from": "0h0m0s",
+      "duration": "24h",
+      "name": "Weekday"
+    }
+  ]
+}
