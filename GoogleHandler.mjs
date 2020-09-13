@@ -38,9 +38,6 @@ var signoutButton = document.getElementById('signout_button');
 export function handleClientLoad() {
     gapi.load('client:auth2', initClient);
 }
-
-window.handleClientLoad = handleClientLoad();
-
 /**
  *  Initializes the API client library and sets up sign-in state
  *  listeners.
@@ -84,7 +81,9 @@ function updateSigninStatus(isSignedIn) {
  *  Sign in the user upon button click.
  */
 function handleAuthClick(event) {
-    gapi.auth2.getAuthInstance().signIn();
+    gapi.auth2.getAuthInstance().signIn().then(()=>{
+        getCalenderIDs();
+    });
 }
 
 /**
@@ -92,6 +91,8 @@ function handleAuthClick(event) {
  */
 function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
+    document.getElementById('select').innerHTML = "";
+    document.getElementById('content').innerHTML = "";
 }
 
 /**
@@ -126,8 +127,8 @@ function getCalenderIDs() {
 function listUpcomingEvents(calenderID) {
     gapi.client.calendar.events.list({
         'calendarId': calenderID,
-        'timeMin': new Date(new Date(new Date().setDate(16)).setMonth(new Date().getMonth() - 1)).toISOString(),
-        'timeMax': new Date(new Date(new Date().setDate(15)).setMonth(new Date().getMonth() + 0)).toISOString(),
+        'timeMin': new Date(new Date(new Date().setDate(16)).setMonth(new Date().getMonth() - 2)).toISOString(),
+        'timeMax': new Date(new Date(new Date().setDate(15)).setMonth(new Date().getMonth() - 1)).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
         'maxResults': 100,

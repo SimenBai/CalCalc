@@ -36,6 +36,7 @@ window.timeConfig = timeConfig;
 
 getJson((json) => {
     let data = json;
+    timeConfig.push(data.wages);
     for (let keyword in keywords) {
         for (let day in data) {
             if (day.toLowerCase() == keyword) {
