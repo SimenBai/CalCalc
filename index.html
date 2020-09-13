@@ -15,12 +15,16 @@
 <pre id="content" style="white-space: pre-wrap;"></pre>
 
 
+<script async defer src="https://apis.google.com/js/api.js" type="module"></script>
 <script type="module">
     import * as TimeF from "./TimeFunctions.mjs";
     import {TimeSpan} from "./TimeSpan.mjs";
     import * as GoogleHandler from "./GoogleHandler.mjs";
     import {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY} from "./TimeSpan.mjs";
 
+    window.onload = () => {
+        GoogleHandler.handleClientLoad()
+    };
 
     let RESET = "";
     let RED = "";
@@ -57,9 +61,11 @@
         let timeCounter = {};
         let currentMonth = 0;
         timeSpans.forEach((timeSpan) => {
+                //if(currentMonth == 0 || )
                 for (let timeKey in timeConfig) {
                     let time = timeConfig[timeKey];
                     if (timeSpan.inDateTime(time.day, time.length, time.hours, time.minutes, time.seconds)) {
+                        //content.innerHTML += "<p style='color:red'>" + time.name + " - " + timeSpan.getString(undefined, TimeF.HOUR) + "</p>"
                         if (isNaN(timeCounter[time.name])) {
                             timeCounter[time.name] = 0
                         }
@@ -71,25 +77,17 @@
         )
         let totalWage = 0;
         let totalHours = 0;
-        for(let shift in timeCounter){
+        for (let shift in timeCounter) {
             timeCounter[shift] /= 2;
-            let rate = 1;
-            if(shift == "Weekend"){
-                rate = 5;
-            }
-            totalWage += timeCounter[shift]*rate;
+            let rate = timeConfig[0][shift];
+            totalWage += timeCounter[shift] * rate;
             totalHours += timeCounter[shift];
-            content.innerHTML += "<p>"+ shift + " - " + timeCounter[shift] + " - " + timeCounter[shift]*rate + ",-</p>";
+            content.innerHTML += "<p>" + shift + " - " + timeCounter[shift] + " - " + timeCounter[shift] * rate + ",-</p>";
         }
-        content.innerHTML += "<p>Sum: "+totalWage+",-</p>";
-        content.innerHTML += "<p>Sum hours: "+totalHours+"</p>";
+        content.innerHTML += "<p>Sum: " + totalWage + ",-</p>";
+        content.innerHTML += "<p>Sum hours: " + totalHours + "</p>";
     }
 </script>
-<script type="module" src="TimeConfigParser.mjs"></script>
-<script async defer type="module" src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){}; handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-</script>
-
+<script src="TimeConfigParser.mjs" type="module"></script>
 </body>
 </html>

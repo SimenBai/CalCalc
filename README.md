@@ -10,7 +10,6 @@ There are still a bit of work that needs to be done. Here is a short list of thi
 * Save config in the url for easier utilization.
 * Personal customization of to and from date for payment.
 * Set bank holidays and other special days with custom wage.
-* Set wage in config.
 * Specificy additional wage, or set rate for days.
 * See multiple months at once.
 * Style the website

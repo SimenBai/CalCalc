@@ -1,4 +1,8 @@
 {
+  "wages": {
+    "Weekend": 200,
+    "Weekday": 100
+  },
   "monday": [
     {
       "from": "0h0m0s",
