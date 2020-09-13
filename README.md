@@ -6,7 +6,6 @@ This is calculated using your own customizable config and getting your google ca
 ## TODO
 
 There are still a bit of work that needs to be done. Here is a short list of things that are planned.
-* Customize the config on the website.
 * Save config in the url for easier utilization.
 * Personal customization of to and from date for payment.
 * Set bank holidays and other special days with custom wage.

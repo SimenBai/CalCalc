@@ -1,6 +1,7 @@
 import * as TimeF from "./TimeFunctions.mjs";
 import {TimeSpan} from "./TimeSpan.mjs";
 import * as GoogleHandler from "./GoogleHandler.mjs";
+import {createConfig} from "./TimeConfigParser.mjs";
 
 window.onload = () => {
     GoogleHandler.handleClientLoad()
@@ -21,10 +22,17 @@ export {RESET, RED, GREEN}
 let period = 30 * TimeF.MINUTE;
 
 window.handleResponse = handleResponse;
+window.apiResponse = {};
+
+document.getElementById("calculate").addEventListener("click", ()=>{
+    createConfig(JSON.parse(document.getElementById("config").value));
+    handleResponse(window.apiResponse);
+});
 
 function handleResponse(response) {
-    let timeSpans = [];
-    window.timeSpans = timeSpans;
+    document.getElementById("content").innerHTML = "";
+    window.timeSpans = [];
+    window.apiResponse = response;
 
     let resp = response.result.items;
 

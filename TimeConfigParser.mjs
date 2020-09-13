@@ -31,12 +31,17 @@ function getJson(callback) {
         });
 }
 
-let timeConfig = [];
-window.timeConfig = timeConfig;
+window.timeConfig = [];
 
 getJson((json) => {
+    createConfig(json);
+    document.getElementById("config").value = JSON.stringify(json, undefined, 4);
+});
+
+export function createConfig(json){
     let data = json;
-    timeConfig.push(data.wages);
+    window.timeConfig = [];
+    window.timeConfig.push(data.wages);
     for (let keyword in keywords) {
         for (let day in data) {
             if (day.toLowerCase() == keyword) {
@@ -45,22 +50,20 @@ getJson((json) => {
                         for (let point in data[day]) {
                             let dataPoint = data[day][point];
                             let fromTimes = splitTimeString(dataPoint.from);
-                            timeConfig.push(new TimeSlot(keywords[keyword][key], addTimeStringTogether(dataPoint.duration), fromTimes["hour"], fromTimes["minute"], fromTimes["second"], dataPoint.name));
+                            window.timeConfig.push(new TimeSlot(keywords[keyword][key], addTimeStringTogether(dataPoint.duration), fromTimes["hour"], fromTimes["minute"], fromTimes["second"], dataPoint.name));
                         }
                     }
                 } else {
                     for (let point in data[day]) {
                         let dataPoint = data[day][point];
                         let fromTimes = splitTimeString(dataPoint.from);
-                        timeConfig.push(new TimeSlot(keywords[keyword], addTimeStringTogether(dataPoint.duration), fromTimes["hour"], fromTimes["minute"], fromTimes["second"], dataPoint.name));
+                        window.timeConfig.push(new TimeSlot(keywords[keyword], addTimeStringTogether(dataPoint.duration), fromTimes["hour"], fromTimes["minute"], fromTimes["second"], dataPoint.name));
                     }
                 }
             }
-
         }
     }
-});
-
+}
 
 function splitTimeString(string) {
     let response = {};
